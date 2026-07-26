@@ -12,6 +12,7 @@ Framework Python reutilizabil pentru backtesting pe acțiuni SUA, date zilnice, 
 - `strategies/base.py` — interfața de bază pentru strategii
 - `strategies/rotation_52w.py` — implementarea strategiei 52w low/high
 - `strategies/sma_crossover.py` — strategie generică SMA crossover
+- `rotation_52w_target_profit.py` - strategie pe buy 52week low si pastrare pozitie pana la 100% profit
 - `strategies/buy_and_hold.py` — benchmark simplu
 - `run_backtest.py` — exemplu de rulare end-to-end
 
