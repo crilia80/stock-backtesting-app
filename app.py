@@ -10,6 +10,7 @@ from reporting import ReportBuilder
 from strategies.rotation_52w import Rotation52WeekStrategy
 from strategies.sma_crossover import SMACrossoverStrategy
 from strategies.buy_and_hold import BuyAndHoldStrategy
+from strategies.rotation_52w_target_profit import Rotation52WeekTargetProfitStrategy
 
 st.set_page_config(page_title="Backtesting Acțiuni US", layout="wide")
 st.title("Backtesting strategii - acțiuni listate în SUA")
@@ -34,6 +35,9 @@ strategy_name = st.sidebar.selectbox(
 
 if strategy_name == "Rotatie 52 saptamani (low/high)":
     window = st.sidebar.number_input("Fereastra (zile de tranzactionare)", value=252, step=1)
+elif strategy_name == "Rotatie 52 saptamani + Profit tinta":
+    window = st.sidebar.number_input("Fereastra (zile de tranzactionare)", value=252, step=1)
+    target_profit_pct = st.sidebar.number_input("Profit tinta (%)", value=100.0, step=10.0, min_value=10.0)
 elif strategy_name == "Crossover medii mobile (SMA)":
     fast_window = st.sidebar.number_input("SMA rapida (zile)", value=20, step=1)
     slow_window = st.sidebar.number_input("SMA lenta (zile)", value=50, step=1)
@@ -61,6 +65,13 @@ if run_button:
 
     if strategy_name == "Rotatie 52 saptamani (low/high)":
         strategy = Rotation52WeekStrategy(prices, allocation_per_trade=config.allocation_per_trade, window=int(window))
+    elif strategy_name == "Rotatie 52 saptamani + Profit tinta":
+        strategy = Rotation52WeekTargetProfitStrategy(
+            prices,
+            allocation_per_trade=config.allocation_per_trade,
+            window=int(window),
+            target_profit_pct=float(target_profit_pct) / 100.0,
+        )
     elif strategy_name == "Crossover medii mobile (SMA)":
         strategy = SMACrossoverStrategy(prices, allocation_per_trade=config.allocation_per_trade,
                                          fast_window=int(fast_window), slow_window=int(slow_window))
