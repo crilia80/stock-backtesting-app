@@ -29,8 +29,8 @@ end_date = st.sidebar.date_input("Data de final", value=pd.Timestamp.today())
 allocation = st.sidebar.number_input("Suma investită per poziție (USD)", value=1000.0, step=100.0)
 
 strategy_name = st.sidebar.selectbox(
-    "Strategie",
-    ["Rotatie 52 saptamani (low/high)", "Crossover medii mobile (SMA)", "Buy & Hold"]
+   "Strategie",
+    ["Rotatie 52 saptamani (low/high)", "Rotatie 52 saptamani + Profit tinta", "Crossover medii mobile (SMA)", "Buy & Hold"]
 )
 
 if strategy_name == "Rotatie 52 saptamani (low/high)":
